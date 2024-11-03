@@ -30,12 +30,12 @@ Both arrays are already sorted.
 
 */
 
-const readline = require('readline');
+const readline = require("readline");
 
 // Set up readline interface for reading input
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 // Function to merge two sorted arrays
@@ -45,53 +45,44 @@ const mergeSortedArrays = (arr1, arr2) => {
   let res = [];
   let m = arr1.length;
   let n = arr2.length;
-  let i = 0 , j = 0;
-  while(i < m && j < n){
-      if(arr1[i] < arr2[j]){
-          res.push(arr1[i]);
-          i++;
-      }
-      else{
-          res.push(arr2[j]);
-          j++;
-      }
-  }
-
-  while(i < m){
+  let i = 0,
+    j = 0;
+  while (i < m && j < n) {
+    if (arr1[i] < arr2[j]) {
       res.push(arr1[i]);
       i++;
-  }
-
-  while(j < n){
+    } else {
       res.push(arr2[j]);
       j++;
+    }
+  }
+
+  while (i < m) {
+    res.push(arr1[i]);
+    i++;
+  }
+
+  while (j < n) {
+    res.push(arr2[j]);
+    j++;
   }
 
   return res;
-  
 };
 
+let inputCount = 0;
+let arr1 = [];
+let arr2 = [];
 
 // Function to read input and process arrays
-const processInput = () => {
-  rl.question('', (input1) => {
-    const arr1 = input1.split(' ').map(Number); // Convert input string to an array of numbers
-
-    rl.question('', (input2) => {
-      const arr2 = input2.split(' ').map(Number); // Convert input string to an array of numbers
-
-      // Merge the two sorted arrays
-      const mergedArray = mergeSortedArrays(arr1, arr2);
-
-      // Output the merged, sorted array
-      console.log(mergedArray);
-
-      // Close the readline interface
-      rl.close();
-    });
-  });
-};
-
-// Start the process
-processInput();
-
+rl.on("line", (input) => {
+  if (inputCount === 0) {
+    arr1 = input.split(" ").map(Number); // Convert input string to an array of numbers
+    inputCount++;
+  } else {
+    arr2 = input.split(" ").map(Number); // Convert input string to an array of numbers
+    const mergedArray = mergeSortedArrays(arr1, arr2); // Merge the two sorted arrays
+    console.log(mergedArray); // Output the merged, sorted array
+    rl.close(); // Close the readline interface
+  }
+});
