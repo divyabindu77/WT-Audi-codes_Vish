@@ -44,8 +44,9 @@ Each step is performed with the appropriate delay as specified.
 */
 
 
-const readline = require('readline');
+const readline = require("readline");
 
+// Define available stocks
 let stocks = {
   Fruits: ["strawberry", "grapes", "banana", "apple"],
   liquid: ["water", "ice"],
@@ -56,35 +57,84 @@ let stocks = {
 // Set up readline interface for user input
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 // Ask for fruit selection
 const askFruit = () => {
-  rl.question(`Choose a fruit (${stocks.Fruits.join(', ')}): `, (fruit) => {
-    askHolder(fruit);
+  rl.question(`Choose a fruit (${stocks.Fruits.join(", ")}): `, (fruit) => {
+    if (stocks.Fruits.includes(fruit)) {
+      askHolder(fruit);
+    } else {
+      console.log("Invalid fruit selection. Please try again.");
+      askFruit();
+    }
   });
 };
 
 // Ask for holder selection
 const askHolder = (fruit) => {
-  rl.question(`Choose a holder (${stocks.holder.join(', ')}): `, (holder) => {
-    askTopping(fruit, holder);
+  rl.question(`Choose a holder (${stocks.holder.join(", ")}): `, (holder) => {
+    if (stocks.holder.includes(holder)) {
+      askTopping(fruit, holder);
+    } else {
+      console.log("Invalid holder selection. Please try again.");
+      askHolder(fruit);
+    }
   });
 };
 
 // Ask for topping selection
 const askTopping = (fruit, holder) => {
-  rl.question(`Choose a topping (${stocks.toppings.join(', ')}): `, (topping) => {
-    production(fruit, holder, topping);
-  });
+  rl.question(
+    `Choose a topping (${stocks.toppings.join(", ")}): `,
+    (topping) => {
+      if (stocks.toppings.includes(topping)) {
+        production(fruit, holder, topping);
+      } else {
+        console.log("Invalid topping selection. Please try again.");
+        askTopping(fruit, holder);
+      }
+    }
+  );
 };
 
-// Ice cream production process
+// Ice cream production process with delays
 const production = (fruit_name, holder_name, topping_name) => {
-    // Implement your logic here.
+  console.log(`${fruit_name} was selected`);
+  console.log("Production has started");
+
+  // Step 2: After 1 second - Chop the fruit
+  setTimeout(() => {
+    console.log(`The ${fruit_name} fruit has been chopped`);
+  }, 1000);
+
+  // Step 3: After 2 seconds - Add liquid (water and ice)
+  setTimeout(() => {
+    console.log("Water and ice added");
+  }, 2000);
+
+  // Step 4: After 4 seconds - Start the machine
+  setTimeout(() => {
+    console.log("Start the machine");
+  }, 4000);
+
+  // Step 5: After 6 seconds - Place ice cream in holder
+  setTimeout(() => {
+    console.log(`Ice cream placed on ${holder_name}`);
+  }, 6000);
+
+  // Step 6: After 9 seconds - Add topping
+  setTimeout(() => {
+    console.log(`${topping_name} as toppings`);
+  }, 9000);
+
+  // Step 7: After 11 seconds - Serve ice cream
+  setTimeout(() => {
+    console.log("Serve Ice cream");
+    rl.close(); // Close the input stream
+  }, 11000);
 };
 
 // Start the process
 askFruit();
-

@@ -37,36 +37,58 @@ Food prepared.
 Food packaged.                                                                  
 Food delivered.                                                                 
 Food delivery process complete. 
-
 */
 
 const placeOrder = () => {
-    return new Promise((resolve) => {
-          // write logic here
-    });
-  };
-  
-  const prepareFood = () => {
-    return new Promise((resolve) => {
-          // write logic here
-    });
-  };
-  
-  const deliverFood = () => {
-    return new Promise((resolve, reject) => {
-          // write logic here
-    });
-  };
-  
-  const packageFood = () => {
-    return new Promise((resolve) => {
-          
-    });
-  };
-  
-  const startFoodDeliveryProcess = async () => {
-      // implement this function to call the above functions in a correct order.
-  };
-  
-  startFoodDeliveryProcess();
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Order placed.");
+      resolve();
+    }, 1000); // 1 second
+  });
+};
+
+const prepareFood = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Food prepared.");
+      resolve();
+    }, 3000); // 3 seconds
+  });
+};
+
+const deliverFood = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Food delivered.");
+      resolve();
+    }, 2000); // 2 seconds
+  });
+};
+
+const packageFood = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Food packaged.");
+      resolve();
+    }, 1000); // 1 second
+  });
+};
+
+const startFoodDeliveryProcess = async () => {
+  try {
+    await placeOrder(); // Step 1: Place the order
+    await prepareFood(); // Step 2: Prepare the food
+
+    // Step 3: Package and deliver the food concurrently after preparation
+    await Promise.all([packageFood(), deliverFood()]);
+
+    console.log("Food delivery process complete.");
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+startFoodDeliveryProcess();
+
   

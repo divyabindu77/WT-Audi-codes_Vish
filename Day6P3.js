@@ -49,7 +49,7 @@ printjson(db.getSiblingDB('test').students.find({
     $or:[
         {department:"Mathematics"},
         {gpa:{$lt:3.3}}
-        ]
+        ] 
 },
 {_id:0,name:1,department:1,gpa:1}));
   
