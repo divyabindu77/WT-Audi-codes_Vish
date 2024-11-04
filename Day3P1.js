@@ -8,30 +8,23 @@ Task: You have an array of user objects, and you need to create an array of thei
 
 */
 
-
 const users = [
-    { name: 'Alice', age: 21 },
-    { name: 'Bob', age: 22 },
-    { name: 'Charlie', age: 21 },
-    { name: 'David', age: 22 },
-    { name: 'Eve', age: 23 },
-    { name: 'Frank', age: 21 },
-    { name: 'Grace', age: 23 },
-    { name: 'Hank', age: 24 },
-    { name: 'Ivy', age: 22 }
-  ];
-  
-  // Implement your logic here and store the result as "userNames".
-let usernames = [];
-users.forEach(obj => userNames.push(obj.name));
+  { name: "Alice", age: 21 },
+  { name: "Bob", age: 22 },
+  { name: "Charlie", age: 21 },
+  { name: "David", age: 22 },
+  { name: "Eve", age: 23 },
+  { name: "Frank", age: 21 },
+  { name: "Grace", age: 23 },
+  { name: "Hank", age: 24 },
+  { name: "Ivy", age: 22 },
+];
 
-console.log(userNames);
+// another way of doing
+let userNames = users.map(retName);
 
-
-/*
-another way of doing 
-let userNames = users.map(user => user.name);
+function retName(object) {
+  return object.name;
+}
 
 console.log(userNames); // Correct output
-
-*/
